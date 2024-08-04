@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useCountStore } from '@/stores/counter'
+import ComponentC from '@/components/ComponentC.vue'
 
 const countStore = useCountStore()
 </script>
@@ -11,9 +12,7 @@ const countStore = useCountStore()
 
     <button>按钮</button>
   </h3>
-  <h3>
-    ComponentA2--
-    {{ countStore.count }} --
-    <button @click="countStore.increment">按钮</button>
-  </h3>
+  <h4>
+    <ComponentC />
+  </h4>
 </template>
