@@ -17,6 +17,9 @@ export const useStudentStore = defineStore('student', {
     actions: {
         growUp() {
             this.age++
+        },
+        changeName() {
+            this.name = 'Jerry'
         }
     }
 

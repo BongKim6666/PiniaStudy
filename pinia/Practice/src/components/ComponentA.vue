@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { useCountStore } from '@/stores/counter'
+import ComponentB from '@/components/ComponentB.vue'
 import ComponentC from '@/components/ComponentC.vue'
+import { useCountStore } from '@/stores/counter'
 
 const countStore = useCountStore()
 </script>
@@ -13,6 +14,7 @@ const countStore = useCountStore()
     <button>按钮</button>
   </h3>
   <h4>
-    <ComponentC />
+    <ComponentB></ComponentB>
+    <ComponentC></ComponentC>
   </h4>
 </template>
