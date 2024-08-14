@@ -1,45 +1,100 @@
 <script lang="ts" setup>
 import { useMealsStore } from '@/stores/meals'
+import CartDetails from '@/components/Cart/cartDetails.vue'
+import { ref } from 'vue'
 
 const mealsStore = useMealsStore()
+const showDetails = ref(false)
 </script>
 
 <template>
+  <CartDetails :isShow="showDetails" @hide="showDetails = false"></CartDetails>
+
   <div class="Cart">
     <div class="CartInner">
-      <input class="Filter-input" type="text" placeholder="请输入关键字" />
-
-      <i class="ri-search-line"></i>
+      <div class="CartIcon">
+        <i class="ri-shopping-bag-2-fill"></i>
+        <span class="CartNum">{{ mealsStore.totalCount }}</span>
+      </div>
+      <div class="CartInfo">
+        <h3 v-if="mealsStore.totalCount == 0">未选购商品</h3>
+        <span v-else class="CartPrice" @click="($event) => (showDetails = true)">{{
+          mealsStore.totalPrice
+        }}</span>
+      </div>
+      <div class="CartBtn">去结算</div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
 .Cart {
-  padding: 0.5rem 0.5rem;
-}
-
-.CartInner {
-  display: flex;
-  align-items: center;
-  height: 4rem;
-  position: relative;
-}
-
-.Filter-input {
-  background-color: rgb(242, 242, 242);
-  border: none;
+  position: fixed;
   width: 100%;
-  height: 100%;
-  border-radius: 4rem;
-  outline: none;
-  padding: 0 4rem 0 4rem;
-  font-size: 1.5rem;
+  padding: 0.5rem 0.5rem;
+  bottom: 2rem;
+  opacity: 0.95;
+  z-index: 999;
 }
-
-.Filter-inner i {
-  position: absolute;
-  color: rgb(184, 184, 184);
+.CartInner {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3a3a3c;
+  border: none;
+  outline: none;
+  border-radius: 4rem;
   font-size: 1.5rem;
-  left: 1rem;
+  .CartIcon i {
+    position: absolute;
+    top: -1rem;
+    left: 0;
+    color: #c69c6d;
+    font-size: 5rem;
+    left: 1rem;
+  }
+  .CartNum {
+    display: flex;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: -1rem;
+    left: 4rem;
+    color: white;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+  }
+  .CartInfo {
+    position: absolute;
+    left: 9rem;
+    color: #9d9d9f;
+    .CartPrice {
+      color: white;
+      font-size: 2rem;
+    }
+    .CartPrice::before {
+      content: '￥';
+      font-size: 1rem;
+      margin-right: 0.3rem;
+    }
+  }
+  .CartBtn {
+    display: flex;
+    width: 20%;
+    height: 100%;
+    background-color: rgb(248, 188, 0);
+    color: black;
+    border: none;
+    outline: none;
+    border-radius: 4rem;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

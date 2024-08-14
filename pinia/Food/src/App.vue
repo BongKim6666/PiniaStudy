@@ -11,7 +11,7 @@ const mealsStore = useMealsStore()
   <!-- 商品搜索 -->
   <mealsFilter />
   <!-- 商品信息 -->
-  <mealsContent />
+  <mealsContent :meals="mealsStore.filteredMeals" :desc="true" />
   <!-- 购物车 -->
   <mealsCart />
 </template>

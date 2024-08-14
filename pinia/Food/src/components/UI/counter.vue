@@ -1,40 +1,42 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-const count = ref(0)
-const isClick = ref(false)
-function reduceCounter() {
-  count.value--
-  if (count.value < 0) {
-    count.value = 0
-  }
-}
-function addCounter() {
-  count.value++
-  isClick.value = true
-}
+import { defineProps } from 'vue'
+import { useMealsStore } from '@/stores/meals'
+
+const mealsStore = useMealsStore()
+const props = defineProps(['meal'])
 </script>
 
 <template>
   <div class="Counter">
-    <button class="sub" @click="reduceCounter" v-show="isClick">
-      <i class="ri-subtract-line"></i>
+    <template v-if="props.meal.count > 0">
+      <button class="Sub" @click="mealsStore.subMealFromCart(props.meal)">
+        <i class="ri-subtract-line"></i>
+      </button>
+      <span class="CountNum">{{ props.meal.count }}</span>
+    </template>
+
+    <button class="Add" @click="mealsStore.addMealToCart(props.meal)">
+      <i class="ri-add-line"></i>
     </button>
-    <span v-show="isClick" class="countNum">{{ count }}</span>
-    <button class="add" @click="addCounter"><i class="ri-add-line"></i></button>
   </div>
 </template>
+\
 
 <style lang="scss" scoped>
 .Counter {
   display: flex;
   width: 8rem;
+  height: 100%;
   align-items: center;
   justify-content: space-between;
-  .countNum {
+  .CountNum {
     font-weight: bold;
   }
-  .sub {
+  .Sub {
+    display: flex;
+    border: 1px solid black;
     background-color: #fff;
+    justify-content: center;
   }
   button {
     display: block;

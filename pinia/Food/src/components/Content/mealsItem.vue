@@ -1,16 +1,9 @@
 <script lang="ts" setup>
 import { defineProps } from 'vue'
+import { useMealsStore } from '@/stores/meals'
 import counter from '@/components/UI/counter.vue'
-interface foodItemProps {
-  meal: {
-    id: string
-    title: string
-    desc: string
-    price: number
-    img: string
-  }
-}
-const props = withDefaults(defineProps<foodItemProps>(), {})
+
+const props = defineProps(['meal', 'desc'])
 </script>
 
 <template>
@@ -24,11 +17,11 @@ const props = withDefaults(defineProps<foodItemProps>(), {})
         {{ props.meal.title }}
       </div>
       <div class="Desc">
-        <p>{{ props.meal.desc }}</p>
+        <p v-show="props.desc">{{ props.meal.desc }}</p>
       </div>
       <div class="Select">
         <div class="ItemPrice">&yen;{{ props.meal.price }}</div>
-        <counter />
+        <counter :meal="props.meal" />
       </div>
     </div>
   </div>
@@ -39,7 +32,7 @@ const props = withDefaults(defineProps<foodItemProps>(), {})
   display: flex;
   width: 100%;
   height: calc(inherit / 7);
-  background-color: pink;
+  background-color: none;
   border-bottom: 1px #999 solid;
   justify-content: space-around;
   align-items: center;
