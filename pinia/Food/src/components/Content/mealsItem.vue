@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { defineProps } from 'vue'
-import { useMealsStore } from '@/stores/meals'
 import counter from '@/components/UI/counter.vue'
 
 const props = defineProps(['meal', 'desc'])

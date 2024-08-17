@@ -1,10 +1,17 @@
 <template>
-  <Mask>
+  <Mask style="z-index: 99">
+    <Dialog
+      :isShow="showDialog"
+      @hide="showDialog = false"
+      :msg="msg"
+      @closeDetails="closeDetails"
+    ></Dialog>
     <div class="CartDetails">
       <div class="Header">
         <div class="Left"><h2>餐品详情</h2></div>
         <div class="Right">
-          <a @click="mealsStore.clearCart"><i class="ri-delete-bin-line" href="javascript:;"></i></a
+          <a @click="showDialog = !showDialog"
+            ><i class="ri-delete-bin-line" href="javascript:;"></i></a
           >清空购物车
         </div>
       </div>
@@ -14,11 +21,23 @@
 </template>
 
 <script setup>
+import { ref, defineEmits } from 'vue'
 import MealsContent from '@/components/Content/mealsContent.vue'
 import Mask from '@/components/UI/mask.vue'
+import Dialog from '@/components/UI/dialog.vue'
 import { useMealsStore } from '@/stores/meals'
 
+const emits = defineEmits(['hide'])
 const mealsStore = useMealsStore()
+const showDialog = ref(false)
+
+const msg = ref('你确定要清空购物车吗？')
+
+function closeDetails() {
+  mealsStore.clearCart()
+  showDialog.value = false
+  emits('hide')
+}
 </script>
 
 <style lang="scss" scoped>

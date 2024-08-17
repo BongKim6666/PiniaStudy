@@ -1,13 +1,16 @@
-<script lang="ts" setup>
+<script setup>
 import { useMealsStore } from '@/stores/meals'
 import CartDetails from '@/components/Cart/cartDetails.vue'
+import Checkout from '@/components/Checkout/checkout.vue'
 import { ref } from 'vue'
 
 const mealsStore = useMealsStore()
 const showDetails = ref(false)
+const showCheckout = ref(false)
 </script>
 
 <template>
+  <Checkout :isShow="showCheckout" @close="showCheckout = false"></Checkout>
   <CartDetails :isShow="showDetails" @hide="showDetails = false"></CartDetails>
 
   <div class="Cart">
@@ -22,7 +25,7 @@ const showDetails = ref(false)
           mealsStore.totalPrice
         }}</span>
       </div>
-      <div class="CartBtn">去结算</div>
+      <div class="CartBtn" @click="showCheckout = mealsStore.totalCount > 0">去结算</div>
     </div>
   </div>
 </template>
